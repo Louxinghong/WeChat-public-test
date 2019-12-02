@@ -12,17 +12,26 @@
       @delete="onDelete"
       @change-detail="onChangeDetail"
     />
+    <van-steps :active="active">
+      <van-step>买家下单</van-step>
+      <van-step>商家接单</van-step>
+      <van-step>买家提货</van-step>
+      <van-step>交易完成</van-step>
+    </van-steps>
+    <van-button type="info" @click="onNext">Next</van-button>
   </div>
 </template>
 
 <script>
-import areaList from './areaList'
+import areaList from './static/areaList.js'
+
 export default {
-  name: 'test',
+  name: 'Area',
   data () {
     return {
       areaList,
-      searchResult: []
+      searchResult: [],
+      active: 1
     }
   },
   methods: {
@@ -42,6 +51,12 @@ export default {
         ]
       } else {
         this.searchResult = []
+      }
+    },
+    onNext () {
+      this.active++
+      if (this.active > 3) {
+        this.active = 0
       }
     }
   }
