@@ -19,6 +19,16 @@
       <van-step>交易完成</van-step>
     </van-steps>
     <van-button type="info" @click="onNext">Next</van-button>
+
+    <van-field
+      v-model="phone"
+      type="password"
+      label="手机号"
+      placeholder="请输入手机号"
+      :error="phone === ''"
+      error-message
+    />
+    <van-button type="info" @click="onSubmit">提交</van-button>
   </div>
 </template>
 
@@ -31,7 +41,11 @@ export default {
     return {
       areaList,
       searchResult: [],
-      active: 1
+      active: 1,
+      phone: '',
+      rules: {
+        phone: '手机号不能为空'
+      }
     }
   },
   methods: {
@@ -57,6 +71,11 @@ export default {
       this.active++
       if (this.active > 3) {
         this.active = 0
+      }
+    },
+    onSubmit () {
+      if (this.phone === '') {
+        this.$toast('手机号不能为空')
       }
     }
   }
